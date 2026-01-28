@@ -42,3 +42,42 @@ pipeline:
                     repo: " venkatesh21/infrion"
                     tags:
                       - "1.1"
+    - stage:
+        name: cd
+        identifier: cd
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: ingress_service_477
+          environment:
+            environmentRef: dev_477
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: my_infra_477
+          execution:
+            steps:
+              - step:
+                  name: Rollout Deployment
+                  identifier: rolloutDeployment
+                  type: K8sRollingDeploy
+                  timeout: 10m
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: false
+            rollbackSteps:
+              - step:
+                  name: Rollback Rollout Deployment
+                  identifier: rollbackRolloutDeployment
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec:
+                    pruningEnabled: false
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
