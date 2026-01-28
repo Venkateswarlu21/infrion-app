@@ -1,0 +1,43 @@
+pipeline:
+  name: infrion-ci
+  identifier: infrionci
+  projectIdentifier: SFTY_Training
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: github_477
+        repoName: infrion-app
+        build: <+input>
+  stages:
+    - stage:
+        name: ci-build
+        identifier: cibuild
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec:
+              size: medium
+              imageSpec:
+                imageName: ubuntu-22
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
+                  spec:
+                    connectorRef: docker_hub_477
+                    repo: Venkatesh21/infrion
+                    tags:
+                      - "1.1"
