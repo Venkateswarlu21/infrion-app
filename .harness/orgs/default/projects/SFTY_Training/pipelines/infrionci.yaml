@@ -10,6 +10,7 @@ pipeline:
         connectorRef: github_477
         repoName: infrion-app
         build: <+input>
+        sparseCheckout: []
   stages:
     - stage:
         name: ci-build
