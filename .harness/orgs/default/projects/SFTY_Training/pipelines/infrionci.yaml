@@ -39,6 +39,6 @@ pipeline:
                   identifier: BuildAndPushDockerRegistry_1
                   spec:
                     connectorRef: docker_hub_477
-                    repo: Venkatesh21/infrion
+                    repo: " venkatesh21/infrion"
                     tags:
                       - "1.1"
