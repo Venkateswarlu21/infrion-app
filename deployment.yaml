@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: infrion-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: infrion
+  template:
+    metadata:
+      labels:
+        app: infrion
+    spec:
+      containers:
+      - name: infrion
+        image: infrion/web:1.0
+        ports:
+        - containerPort: 80
